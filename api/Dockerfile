@@ -7,3 +7,5 @@ WORKDIR /app
 ADD Gemfile /app/
 ADD Gemfile.lock /app/
 RUN bundle install
+
+EXPOSE 3000
