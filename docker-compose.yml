@@ -1,2 +1,9 @@
 version: '3.6'
 
+services:
+  api:
+    build: ./api/
+    container_name: api
+    volumes:
+      - ./api/:/app
+    working_dir: /app
