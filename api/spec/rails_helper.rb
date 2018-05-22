@@ -49,4 +49,8 @@ RSpec.configure do |config|
       example.run
     end
   end
+
+  # Configs for remote test db (db container)
+  DatabaseCleaner.allow_production = true
+  DatabaseCleaner.allow_remote_database_url = true
 end
