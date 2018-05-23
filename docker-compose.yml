@@ -16,6 +16,8 @@ services:
       - db
     environment:
       DATABASE_URL: postgres://postgres@db
+      AUTHORIZATION_TOKEN: 'Token Bandolim@M821912212ejadsa@023'
+      TEAS_API_URL: 'https://tea-store.herokuapp.com/api/available-teas'
   db:
     container_name: db
     image: postgres:10.3-alpine
