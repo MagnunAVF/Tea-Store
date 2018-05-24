@@ -1,13 +1,22 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
+
 import Tea from './../widgets/Tea'
 import TeaDetail from './../widgets/TeaDetail'
 
-const TeaList = () => (
-  <div>
-    <h1>Tea List page</h1>
-    <Tea />
-    <TeaDetail />
-  </div>
-)
+class TeaList extends React.Component {
+    render(){
+      return(
+        <div>
+          <h1>Chás</h1>
+          <h3>Tipo: { this.props.match.params.type }</h3>
+          <Tea />
+          <TeaDetail />
+
+          <Link to='/'>Voltar</Link>
+        </div>
+      )
+    }
+}
 
 export default TeaList
