@@ -38,7 +38,8 @@ class TeaList extends React.Component {
           <div>
             {
               teas.map((tea) => {
-                return(<li key={tea.id}>{tea.name}</li>)
+                return(
+                  <li key={ tea.id }> <Tea tea={ tea }/> </li>)
               })
             }
           </div>
@@ -53,10 +54,6 @@ class TeaList extends React.Component {
         <h1>Chás</h1>
         <h3>Tipo: { this.props.match.params.type }</h3>
 
-        <Tea />
-        <TeaDetail />
-
-        <h3>Teas List</h3>
         { this.renderTeas() }
 
         <Link to='/'>Voltar</Link>
