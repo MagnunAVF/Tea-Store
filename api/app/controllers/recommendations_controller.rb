@@ -37,7 +37,7 @@ class RecommendationsController < ApplicationController
 
       teas = external_api_response['teas']
 
-      selected_teas = multi_param_filter(teas, [tea_type])
+      selected_teas = multi_param_filter(teas, [tea_type], false)
 
       render json: teas_json_response(selected_teas, error)
     end
@@ -58,8 +58,9 @@ class RecommendationsController < ApplicationController
       else
 
         teas = external_api_response['teas']
+        inverse = default_recommendations[recommendation_type.to_sym][:not]
 
-        selected_teas = multi_param_filter(teas, teas_type_list)
+        selected_teas = multi_param_filter(teas, teas_type_list, inverse)
 
         render json: teas_json_response(selected_teas, error)
       end
@@ -92,12 +93,20 @@ class RecommendationsController < ApplicationController
     selected_types.uniq
   end
 
-  def multi_param_filter(teas, types_list)
+  def multi_param_filter(teas, types_list, inverse)
     selected_teas = []
 
-    teas.each do |tea|
-      if types_list.include?(tea["type"])
-        selected_teas.push(tea)
+    if inverse
+      teas.each do |tea|
+        if !types_list.include?(tea["type"])
+          selected_teas.push(tea)
+        end
+      end
+    else
+      teas.each do |tea|
+        if types_list.include?(tea["type"])
+          selected_teas.push(tea)
+        end
       end
     end
 
