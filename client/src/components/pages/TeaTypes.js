@@ -1,15 +1,57 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
+const API_URL = "http://localhost:5000/available_teas_types"
+
 class TeaTypes extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      tea_types: [],
+    };
+  }
+
+  componentDidMount() {
+    this.fetchTeaTypes();
+  }
+
+  fetchTeaTypes() {
+    fetch(API_URL)
+    .then(response => response.json())
+    .then(json => this.setState({ tea_types: json.types }))
+  }
+
+  renderTeaTypes() {
+    const tea_types = this.state.tea_types;
+    const emptyList = tea_types.length === 0;
+
+    return (
+      <div>
+        { emptyList ? (
+          <div className="ui raised segment"><p>Sem chás no momento! </p></div>
+        ) : (
+          <div>
+            {
+              tea_types.map((type, i) => {
+                return(
+                  <div key={ i } className="ui raised segment" >
+                    <Link to={'/tea-list/' + type}>{ type }</Link>
+                  </div>)
+              })
+            }
+          </div>
+        )}
+      </div>
+    );
+  }
+
   render(){
     return(
       <div>
         <h1>Tipos de chás disponíveis</h1>
         <ul>
-          <li><Link to='/tea-list/black-tea'>Preto</Link></li>
-          <li><Link to='/tea-list/white-tea'>Branco</Link></li>
-          <li><Link to='/tea-list/chai'>Chai</Link></li>
+          { this.renderTeaTypes() }
         </ul>
       </div>
     )
