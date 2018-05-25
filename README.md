@@ -91,3 +91,14 @@ We use [SemVer](http://semver.org/) for versioning.
 Not yet defined.
 
 ## Final Notes
+Future improvements (TODO):
+* Fix POST 401 on client (CORs in server?);
+* Client tests with Jest and Enzyme;
+* Use Json Web Token on api;
+* Create Authentication container;
+* Create Monitor container;
+* Improve UI;
+
+Last worked branch: master
+
+Doubts? Problems? send an email to magnunavf@gmail.com
