@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import Tea from './../widgets/Tea'
 import TeaDetail from './../widgets/TeaDetail'
 
-const API_URL = "http://localhost:5000/available_teas"
+const API_URL = "http://localhost:5000/teas_recommendation?recommendation_type="
 
 class TeaList extends React.Component {
   constructor(props) {
@@ -12,6 +12,7 @@ class TeaList extends React.Component {
 
     this.state = {
       teas: [],
+      full_url: API_URL + this.props.match.params.type
     };
   }
 
@@ -20,8 +21,7 @@ class TeaList extends React.Component {
   }
 
   fetchTeas() {
-    console.log("fetching ...");
-    fetch(API_URL)
+    fetch(this.state.full_url)
     .then(response => response.json())
     .then(json => this.setState({ teas: json.teas }))
   }
@@ -49,10 +49,11 @@ class TeaList extends React.Component {
   }
 
   render() {
+    const FULL_URL = "bla"
+
     return(
       <div>
-        <h1>Chás</h1>
-        <h3>Tipo: { this.props.match.params.type }</h3>
+        <h1>Chás Disponíveis</h1>
 
         { this.renderTeas() }
 
