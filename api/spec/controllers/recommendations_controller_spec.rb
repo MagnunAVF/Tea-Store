@@ -78,4 +78,74 @@ RSpec.describe RecommendationsController, type: :controller do
       end
     end
   end
+
+  context "When getting available tea types" do
+    context "with a successful tea fetch" do
+      it "should return a list of tea types" do
+        VCR.use_cassette('teas') do
+          get :available_teas_types
+
+          result = JSON.parse(response.body)
+          error = result["error"]
+          teas_types = result["types"]
+
+          fixture_file_path = Rails.root.to_s + "/spec/fixtures/available_teas_types.json"
+          json_fixture = File.read(fixture_file_path)
+          expected_result = JSON.parse(json_fixture)['types']
+
+          expect(error).to eq("-")
+          expect(teas_types).to eq(expected_result)
+        end
+      end
+    end
+  end
+
+  context "When getting teas by recommendation route" do
+    context "with a successful tea fetch" do
+      it "should return a filtered tea list (test case: medicinal)" do
+        VCR.use_cassette('teas') do
+          get :teas_recommendation, params: { "recommendation_type": "medicinal" }
+
+          result = JSON.parse(response.body)
+          error = result["error"]
+          teas = result["teas"]
+
+          fixture_file_path = Rails.root.to_s + "/spec/fixtures/medicinal_teas.json"
+          json_fixture = File.read(fixture_file_path)
+          expected_result = JSON.parse(json_fixture)['teas']
+
+          expect(error).to eq("-")
+          expect(teas).to eq(expected_result)
+        end
+      end
+
+      it "should return a filtered tea list (test case: sleep)" do
+        VCR.use_cassette('teas') do
+          get :teas_recommendation, params: { "recommendation_type": "sleep" }
+
+          result = JSON.parse(response.body)
+          error = result["error"]
+          teas = result["teas"]
+
+          fixture_file_path = Rails.root.to_s + "/spec/fixtures/not_black_tea_teas.json"
+          json_fixture = File.read(fixture_file_path)
+          expected_result = JSON.parse(json_fixture)['teas']
+
+          expect(error).to eq("-")
+          expect(teas).to eq(expected_result)
+        end
+      end
+
+      it "should return a filtered tea list" do
+        VCR.use_cassette('teas') do
+          get :teas_recommendation, params: { "recommendation_type": "chai" }
+
+          redirect_message = '<html><body>You are being <a href="http://test.host/teas_by_type?tea_type=chai">redirected</a>.</body></html>'
+
+          expect(response.body).to eq(redirect_message)
+        end
+      end
+    end
+  end
+
 end
