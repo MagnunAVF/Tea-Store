@@ -1,4 +1,5 @@
 import React from 'react'
+import * as _ from "lodash"
 
 import Header from './Header'
 import Main from './Main'
@@ -25,7 +26,7 @@ class App extends React.Component {
   render(){
     return(
       <div>
-        <Header />
+        <Header cart_items_quantity={_.values(this.state.orders).length}/>
         <Main handleClick={this.handleClick} orders={this.state.orders}/>
       </div>
     )

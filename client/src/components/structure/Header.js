@@ -11,6 +11,7 @@ class Header extends React.Component {
             <li><Link to='/tea-types'>Disponiveis</Link></li>
             <li><Link to='/recommendations'>Sugestoes</Link></li>
             <li><Link to='/cart'>Finalizar pedido</Link></li>
+            <p>Itens no carrinho: {this.props.cart_items_quantity}</p>
           </ul>
         </nav>
       </header>
