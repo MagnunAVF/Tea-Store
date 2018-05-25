@@ -36,6 +36,8 @@ class App extends React.Component {
     return(
       <div>
         <Header cart_items_quantity={_.values(this.state.orders).length}/>
+        <div className="ui divider"></div>
+        <br/><br/>
         <Main
           addItemToCart={this.addItemToCart}
           removeItemFromCart={this.removeItemFromCart}

@@ -33,16 +33,17 @@ class TeaList extends React.Component {
     return (
       <div>
         { emptyList ? (
-          <div><p>Sem chás no momento! </p></div>
+          <div className="ui raised segment"><p>Sem chás no momento! </p></div>
         ) : (
-          <div>
+          <div className="ui cards">
             {
               teas.map((tea) => {
                 return(
-                  <li key={ tea.id }>
-                    <Tea tea={ tea } addItemToCart={this.props.addItemToCart}/>
-                  </li>)
-              })
+                    <div key={ tea.id }>
+                      <Tea tea={ tea } addItemToCart={this.props.addItemToCart}/>
+                    </div>
+
+              )})
             }
           </div>
         )}
@@ -51,14 +52,15 @@ class TeaList extends React.Component {
   }
 
   render() {
-    const FULL_URL = "bla"
-
     return(
       <div>
         <h1>Chás Disponíveis</h1>
+        <br/>
         { this.renderTeas() }
 
+        <br/><br/>
         <Link to='/'>Voltar</Link>
+        <br/>
       </div>
     )
   }

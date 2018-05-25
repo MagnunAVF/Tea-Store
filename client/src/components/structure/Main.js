@@ -10,7 +10,7 @@ import TeaList from './../pages/TeaList'
 class Main extends React.Component {
   render(){
     return(
-      <main>
+      <main className="ui centered grid">
         <Switch>
           <Route exact path='/' component={Home}/>
           <Route path='/tea-types' component={TeaTypes}/>
