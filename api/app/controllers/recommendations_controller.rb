@@ -7,6 +7,24 @@ class RecommendationsController < ApplicationController
     render json: external_api_response
   end
 
+  def available_teas_types
+    external_api_response = JSON.parse(use_external_api)
+
+    error = external_api_response['error']
+
+    if error != '-'
+      tea_types = []
+
+      render json: teas_json_response(tea_types, error)
+    else
+      teas = external_api_response['teas']
+
+      teas_types = select_types(teas)
+
+      render json: types_json_response(teas_types, error)
+    end
+  end
+
   def teas_by_type
     external_api_response = JSON.parse(use_external_api)
 
@@ -20,7 +38,7 @@ class RecommendationsController < ApplicationController
       teas = external_api_response['teas']
       selected_teas = multi_param_filter(teas, [tea_type])
 
-      render json: json_response(selected_teas, error)
+      render json: teas_json_response(selected_teas, error)
     end
   end
 
@@ -35,6 +53,16 @@ class RecommendationsController < ApplicationController
     end
 
     selected_teas
+  end
+
+  def select_types(teas)
+    selected_types = []
+
+    teas.each do |tea|
+      selected_types.push(tea['type'])
+    end
+
+    selected_types.uniq
   end
 
   def multi_param_filter(teas, types_list)
@@ -60,13 +88,20 @@ class RecommendationsController < ApplicationController
       selected_teas = teas_in_stock(teas)
     end
 
-    return json_response(selected_teas, error)
+    return teas_json_response(selected_teas, error)
   end
 
-  def json_response(teas_list, error)
+  def teas_json_response(teas_list, error)
     {
       'error': error,
       'teas': teas_list
+    }.to_json
+  end
+
+  def types_json_response(types_list, error)
+    {
+      'error': error,
+      'types': types_list
     }.to_json
   end
 end

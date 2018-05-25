@@ -78,4 +78,25 @@ RSpec.describe RecommendationsController, type: :controller do
       end
     end
   end
+
+  context "When getting available tea types" do
+    context "with a successful tea fetch" do
+      it "should return a list of tea types" do
+        VCR.use_cassette('teas') do
+          get :available_teas_types
+
+          result = JSON.parse(response.body)
+          error = result["error"]
+          teas_types = result["types"]
+
+          fixture_file_path = Rails.root.to_s + "/spec/fixtures/available_teas_types.json"
+          json_fixture = File.read(fixture_file_path)
+          expected_result = JSON.parse(json_fixture)['types']
+
+          expect(error).to eq("-")
+          expect(teas_types).to eq(expected_result)
+        end
+      end
+    end
+  end
 end
