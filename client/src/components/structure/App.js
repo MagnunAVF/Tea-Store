@@ -26,7 +26,7 @@ class App extends React.Component {
     return(
       <div>
         <Header />
-        <Main handleClick={this.handleClick}/>
+        <Main handleClick={this.handleClick} orders={this.state.orders}/>
       </div>
     )
   }
