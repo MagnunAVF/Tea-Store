@@ -1,4 +1,5 @@
 import React from 'react';
+import * as _ from "lodash"
 
 class CartItem extends React.Component {
   render() {
@@ -8,6 +9,9 @@ class CartItem extends React.Component {
         <p>id: {this.props.order.id}</p>
         <p>quantidade desejada: {this.props.order.quantity}</p>
         <p>quantidade em estoque: {this.props.order.stock_quantity}</p>
+        <button onClick={() => this.props.removeItemFromCart(
+            this.props.order
+        )}> Remove </button>
       </div>
     )
   }

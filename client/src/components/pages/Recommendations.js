@@ -10,7 +10,7 @@ class Recommendations extends React.Component {
           <li><Link to='/tea-list/sleep'>Para tomar antes de dormir</Link></li>
           <li><Link to='/tea-list/digestion'>Para ajudar na digestão</Link></li>
           <li><Link to='/tea-list/medicinal'>Medicinais</Link></li>
-          <li><Link to='/tea-list/digestion'>Para acompanhar refeições</Link></li>
+          <li><Link to='/tea-list/eat'>Para acompanhar refeições</Link></li>
         </ul>
       </div>
     )

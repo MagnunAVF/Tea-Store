@@ -39,7 +39,9 @@ class TeaList extends React.Component {
             {
               teas.map((tea) => {
                 return(
-                  <li key={ tea.id }> <Tea tea={ tea } handleClick={this.props.handleClick}/> </li>)
+                  <li key={ tea.id }>
+                    <Tea tea={ tea } addItemToCart={this.props.addItemToCart}/>
+                  </li>)
               })
             }
           </div>

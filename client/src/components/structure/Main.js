@@ -15,8 +15,23 @@ class Main extends React.Component {
           <Route exact path='/' component={Home}/>
           <Route path='/tea-types' component={TeaTypes}/>
           <Route path='/recommendations' component={Recommendations}/>
-          <Route path='/cart' render={(props) => (<Cart {...props} orders={this.props.orders}/>)}/>
-          <Route path='/tea-list/:type' render={(props) => (<TeaList {...props} handleClick={this.props.handleClick}/>)}/>
+          <Route path='/cart' render={
+            (props) => (
+              <Cart
+                {...props}
+                orders={this.props.orders}
+                removeItemFromCart={this.props.removeItemFromCart}
+              />)
+            }
+          />
+          <Route path='/tea-list/:type' render={
+            (props) => (
+              <TeaList
+                {...props}
+                addItemToCart={this.props.addItemToCart}
+              />)
+            }
+          />
         </Switch>
       </main>
     )

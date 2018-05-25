@@ -21,7 +21,12 @@ class Cart extends React.Component {
           {
             _.map(orders, (order) => {
               return (
-                <li key={ order.id }> <CartItem order={order}/> </li>
+                <li key={ order.id }>
+                  <CartItem
+                    order={order}
+                    removeItemFromCart={this.props.removeItemFromCart}
+                  />
+                </li>
               )
             })
           }

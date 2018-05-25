@@ -7,7 +7,7 @@ class Tea extends React.Component {
         <h4>{ this.props.tea.name }</h4>
         <p>Tipo: { this.props.tea.type }</p>
         <p>Quantidade em estoque: { this.props.tea.stock_quantity}</p>
-        <button onClick={() => this.props.handleClick(
+        <button onClick={() => this.props.addItemToCart(
           { 'id': this.props.tea.id,
             'name': this.props.tea.name,
             'quantity': 1,
